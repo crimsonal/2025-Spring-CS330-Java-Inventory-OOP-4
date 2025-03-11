@@ -76,6 +76,14 @@ public class Armour extends Equippable implements Item
     {
         Armour cpy = new Armour();
 
+        cpy.setName(this.getName());
+        cpy.setMaterial(this.getMaterial());
+        cpy.setDurability(this.getDurability());
+        cpy.setDefense(this.getDefense());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
+        cpy.setElement(this.getElement());
+
         return cpy;
     }
 
@@ -94,6 +102,15 @@ public class Armour extends Equippable implements Item
 
         Armour rhsItem = (Armour) rhs;
 
+        if (rhsItem.getName().equals(this.getName()) 
+        && rhsItem.getMaterial().equals(this.getMaterial()) 
+        && this.getModifier().equals(rhsItem.getModifier()) 
+        && this.getModifierLevel() == rhsItem.getModifierLevel() 
+        && this.getElement().equals(rhsItem.getElement())
+        && this.getDefense() == rhsItem.getDefense()) {
+            return true;
+        }
+
         return false;
     }
 
@@ -104,7 +121,14 @@ public class Armour extends Equippable implements Item
     @Override
     public int hashCode()
     {
-        return -1;
+        return Objects.hash(
+            this.getName(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel(),
+            this.getElement(),
+            this.getDefense()
+        );
     }
 
     /**
@@ -113,7 +137,22 @@ public class Armour extends Equippable implements Item
     @Override
     public String toString()
     {
-        return "Use the provided format string";
+
+        // "  Nme: %s%n",
+        // "  Dur: %s%n",
+        // "  Def: %d%n",
+        // "  Mtl: %s%n",
+        // "  Mdr: %s (Lvl %d)%n",
+        // "  Emt: %s%n"
+        return String.format(FMT_STR, 
+        this.getName(),
+        Integer.toString(this.getDurability()),
+        this.getDefense(),
+        this.getMaterial(),
+        this.getModifier(),
+        this.getModifierLevel(),
+        this.getElement()
+        );
     }
 }
 
